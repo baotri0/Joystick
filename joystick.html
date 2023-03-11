@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Joystick</title>
+	<style>
+		canvas {
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="joystick" width="150" height="150"></canvas>
+
+	<script>
+		// lấy canvas element và context 2D
+		var canvas = document.getElementById("joystick");
+		var ctx = canvas.getContext("2d");
+
+		// vẽ joystick
+		function drawJoystick(x, y) {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+			ctx.beginPath();
+			ctx.arc(75, 75, 50, 0, 2 * Math.PI);
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.arc(x, y, 25, 0, 2 * Math.PI);
+			ctx.fillStyle = "#FF0000";
+			ctx.fill();
+			ctx.stroke();
+		}
+
+		// xử lý sự kiện chuột để di chuyển joystick
+		canvas.addEventListener("mousemove", function(event) {
+			var rect = canvas.getBoundingClientRect();
+			var x = event.clientX - rect.left;
+			var y = event.clientY - rect.top;
+			drawJoystick(x, y);
+		});
+
+		// vẽ joystick mặc định
+		drawJoystick(75, 75);
+	</script>
+</body>
+</html>
